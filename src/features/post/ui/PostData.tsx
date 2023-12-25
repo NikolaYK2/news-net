@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View, StyleSheet} from "react-native";
+import {Image, Text, View, StyleSheet, TouchableOpacity} from "react-native";
 import {FONT} from "@/assets/styles/typography";
 import {COLOR} from "@/assets/styles/color";
 import {GetPostsType} from "@/features/post/api/postApi";
@@ -12,7 +12,7 @@ export const PostData = ({imageUrl, title, createdAt}:GetPostsType) => {
   const imagePost = imageUrl ? {uri: imageUrl} : avatarImage
 
   return (
-    <View style={styles.containerData}>
+    <TouchableOpacity style={styles.containerData}>
       <View style={styles.containerImg}>
         <Image style={styles.img} source={imagePost}/>
       </View>
@@ -20,7 +20,7 @@ export const PostData = ({imageUrl, title, createdAt}:GetPostsType) => {
         <Text style={styles.title} numberOfLines={2}>{title}</Text>
         <Text style={styles.data}>{createdAt}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -28,7 +28,10 @@ const styles = StyleSheet.create({
   containerData: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLOR.grey500,
+    padding:15
   },
   containerImg: {
     width: 60,
