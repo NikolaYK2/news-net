@@ -2,10 +2,11 @@ import React from 'react';
 import {ActivityIndicator, FlatList, RefreshControl, StyleSheet} from "react-native";
 import {useFetch} from "@/common/hooks/useFetch";
 import {PostData} from "@/features/post/ui/PostData";
+import {postApi} from "@/features/post/api/postApi";
 
 
 export const PostDetails = () => {
-  const {data, isLoading, reFetch} = useFetch()
+  const {data, isLoading, reFetch} = useFetch(postApi.getPosts)
 
   if (isLoading){
     return <ActivityIndicator style={styles.indicator} size={'large'} color={'red'}/>

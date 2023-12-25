@@ -1,20 +1,20 @@
 import {GetPostsType, postApi} from "@/features/post/api/postApi";
 import {useEffect, useState} from "react";
 
-export const useFetch = (endpoint?: string, query?: any) => {
+export const useFetch = (api:(data?:any)=>any, endpoint?: string, query?: any) => {
   const [data, setData] = useState<GetPostsType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  const fetchData = async (args?:any) => {
     setIsLoading(true);
     try {
-      const res = await postApi.getPosts();
+      const res = await api(args);
       setData(res.data);
       setIsLoading(false)
     } catch (e: any) {
       setError(e);
-      alert('There is an error')
+      // alert('There is an error')
     } finally {
       setIsLoading(false)
     }
@@ -24,9 +24,9 @@ export const useFetch = (endpoint?: string, query?: any) => {
     fetchData()
   }, [])
 
-  const reFetch = () => {
+  const reFetch = (args?:any) => {
     setIsLoading(true);
-    fetchData();
+    fetchData(args);
   }
 
   return {data, isLoading, error, reFetch};

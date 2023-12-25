@@ -11,6 +11,9 @@ export type GetPostsType = {
 
 export const postApi = {
   getPosts() {
-    return instance.get<GetPostsType[]>('posts')
-  }
+    return instance.get<GetPostsType[]>(`posts/`)
+  },
+  getPost(id:string) {
+    return instance.get<GetPostsType>(`posts/${id}`)
+  },
 }
