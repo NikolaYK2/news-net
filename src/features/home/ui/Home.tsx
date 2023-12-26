@@ -1,9 +1,12 @@
 import React from 'react';
-import {View} from "react-native";
 import {Post} from "@/features/post/ui/Post";
+import {HomeScreenNavigationProp} from "@/common/type/RootStackParamList";
 
-export const Home = () => {
+type HomeProps = {
+  navigation: HomeScreenNavigationProp;
+};
+export const Home = ({navigation}:HomeProps) => {
   return (
-    <Post/>
+    <Post navigation={navigation}/>
   );
 };

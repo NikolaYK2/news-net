@@ -3,12 +3,15 @@ import {ActivityIndicator, FlatList, RefreshControl, StyleSheet} from "react-nat
 import {useFetch} from "@/common/hooks/useFetch";
 import {PostData} from "@/features/post/ui/PostData";
 import {postApi} from "@/features/post/api/postApi";
+import {HomeScreenNavigationProp} from "@/common/type/RootStackParamList";
 
-
-export const PostDetails = () => {
+type Props={
+  navigation:HomeScreenNavigationProp
+}
+export const PostDetails = ({navigation}:Props) => {
   const {data, isLoading, reFetch} = useFetch(postApi.getPosts)
 
-  if (isLoading){
+  if (isLoading) {
     return <ActivityIndicator style={styles.indicator} size={'large'} color={'red'}/>
   }
   return (
@@ -21,16 +24,19 @@ export const PostDetails = () => {
                   title={item.title}
                   imageUrl={item.imageUrl}
                   text={item.text}
-                  createdAt={item.createdAt}/>
+                  createdAt={item.createdAt}
+                  navigation={navigation}
+
+        />
       )}/>
   );
 };
 
 const styles = StyleSheet.create({
   indicator: {
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 })
 

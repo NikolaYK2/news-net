@@ -1,20 +1,22 @@
-import React, {useState} from 'react';
-import {Image, Text, View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
+import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {FONT} from "@/assets/styles/typography";
 import {COLOR} from "@/assets/styles/color";
-import {GetPostsType, postApi} from "@/features/post/api/postApi";
-import {useFetch} from "@/common/hooks/useFetch";
+import {GetPostsType} from "@/features/post/api/postApi";
+import {HomeScreenNavigationProp} from "@/common/type/RootStackParamList";
 
 
 const avatarImage = require('@/assets/profile/ava.png');
 
-export const PostData = ({imageUrl, title, createdAt, id}: GetPostsType) => {
-  const {reFetch, data} = useFetch(postApi.getPost)
-  console.log(data)
+type Props = GetPostsType & {
+  navigation:HomeScreenNavigationProp
+}
+export const PostData = ({imageUrl, title, createdAt, id, text, navigation}: Props) => {
+  // const {reFetch} = useFetch(postApi.getPost)
   const imagePost = imageUrl ? {uri: imageUrl} : avatarImage
 
   const clickPostHandle = () => {
-    reFetch(id)
+    navigation.navigate('Postfull', {id: id ,image: imageUrl, text: text, title: title})
   }
 
   return (
@@ -24,7 +26,7 @@ export const PostData = ({imageUrl, title, createdAt, id}: GetPostsType) => {
       </View>
       <View style={{flex: 1}}>
         <Text style={styles.title} numberOfLines={2}>{title}</Text>
-        <Text style={styles.data}>{createdAt}</Text>
+        <Text style={styles.data}>{new Date(createdAt).toLocaleDateString()}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -59,3 +61,4 @@ const styles = StyleSheet.create({
     color: COLOR.grey100
   }
 })
+
